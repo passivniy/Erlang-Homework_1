@@ -1,0 +1,16 @@
+-module(p13).
+
+-export([decode_modified/1]).
+
+-import(p05,[reverse/1]).
+
+decode_modified(Acc) -> decode_modified(Acc, []).
+
+decode_modified([], Acc) -> reverse(Acc);
+decode_modified([{Value, Key} | Tail], Acc) ->
+  decode_modified(Tail, decode_to_list([Value, Key], Acc)).
+
+decode_to_list([0, _], Acc) -> Acc;
+decode_to_list([Value, Key], Acc) ->
+  decode_to_list([Value - 1, Key], [Key | Acc]).
+
